@@ -379,23 +379,27 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   input: {
+    fontSize:16,
     flex: 1,
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
     marginRight: 5,
   },
   searchButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#4E4B3E',
+    
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 15,
     borderRadius: 5,
   },
   searchButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize:16,
   },
   uvText: {
     marginTop: 20,
