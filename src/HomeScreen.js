@@ -1,56 +1,4 @@
-/**/ 
 
-
-/*
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
-import * as Location from "expo-location";
-// import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-
-export default function HomeScreen() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [initialRegion, setInitialRegion] = useState(null);
-
-
-  useEffect(() => {
-    // Get user's current location
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      if (location) {
-        setLocation(location);
-        // Set the initial region based on the user's current location
-        setInitialRegion({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        });
-      } else {
-        setErrorMsg("Current location not obtained");
-        return;
-      }
-    })();
-  }, []);
-
-
-  return (
-
-    <Text>Map here</Text>
-
-
-      
-  );
-}
-const styles = StyleSheet.create({
- 
-
-});*/
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -311,22 +259,40 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-    {uvIndex !== null && (
+    {/* {uvIndex !== null && (
       <View style={styles.uvContainer}>
         <Text style={styles.uvText}>
-          UV Index: 
+          UV Index: </Text>
           <Text style={{ 
             color: getUVIndexInfo(uvIndex).color,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+
+
           }}>
             {` ${uvIndex.toFixed(1)} - ${getUVIndexInfo(uvIndex).risk}`}
-          </Text>
+          
         </Text>
         <Text style={styles.uvMessageText}>
           {getUVIndexInfo(uvIndex).message}
         </Text>
       </View>
-    )}
+    )} */}
+
+{uvIndex !== null && ( 
+  <View style={styles.uvContainer}>
+    <Text style={styles.uvText}>
+      UV Index:
+    </Text>
+    <Text 
+      style={[styles.uvIndexValue, { color: getUVIndexInfo(uvIndex).color }]}
+    >
+      {`${uvIndex.toFixed(1)} - ${getUVIndexInfo(uvIndex).risk}`}
+    </Text>
+    <Text style={styles.uvMessageText}>
+      {getUVIndexInfo(uvIndex).message}
+    </Text>
+  </View>
+)}
 
     
       {/* Error Message */}
@@ -404,6 +370,12 @@ const styles = StyleSheet.create({
   uvText: {
     marginTop: 20,
     fontSize: 18,
+    color: '#333',
+  },
+
+  uvIndexValue: {
+
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
   },
