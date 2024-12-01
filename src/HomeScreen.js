@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react';
 import { 
   View, 
@@ -44,6 +46,19 @@ export default function HomeScreen() {
       return null;
     }
   };
+//   if (data && data.result && data.result.uv !== undefined) {
+//     return data.result.uv;
+//   } else {
+//     console.error("UV data is missing or undefined in the response:", data);
+//     setErrorMsg("Failed to fetch UV index: Invalid data");
+//     return null;
+//   }
+// } catch (error) {
+//   console.error("Error fetching UV data:", error);
+//   setErrorMsg("Failed to fetch UV index");
+//   return null;
+// }
+// };
 
   // Fetch City Coordinates function
   const fetchCityCoordinates = async (cityName) => {
@@ -233,15 +248,15 @@ export default function HomeScreen() {
     }
   };
 
-  const moveToCurrentLocation = () => {
-    // currenty not working 
-    setInitialRegion({
-      latitude: latitude,
-      longitude: longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    });
-  };
+  // const moveToCurrentLocation = () => {
+  //   // currenty not working 
+  //   setInitialRegion({
+  //     latitude: latitude,
+  //     longitude: longitude,
+  //     latitudeDelta: 0.0922,
+  //     longitudeDelta: 0.0421,
+  //   });
+  // };
 
   return (
     
@@ -302,7 +317,8 @@ export default function HomeScreen() {
             }}
             title="Current Location"
           />
-      <TouchableOpacity style={styles.currentButton} onPress={moveToCurrentLocation}>
+      <TouchableOpacity style={styles.currentButton} >
+      {/* onPress={moveToCurrentLocation} */}
         <Text style={styles.currentButtonText}>Go to Current Location</Text>
       </TouchableOpacity>
         </MapView>
@@ -365,10 +381,19 @@ const styles = StyleSheet.create({
     fontSize:16,
   },
   currentButton: {
+    // backgroundColor: '#4E4B3E',
+    // paddingVertical: 15,     
+    // paddingHorizontal: 10,  
+    // borderRadius: 10,    
+    // marginTop: 20,         
+    // alignItems: 'center',      
+    // justifyContent: 'center', 
+    // opacity: 0.8,         
+    // maxWidth:"50%", 
     position: 'absolute',
-    top: 20, 
+    top: 20, // Adjust this value to position it vertically
     left: '50%',
-    transform: [{ translateX: -85 }],
+    transform: [{ translateX: -85 }], // Half the width of the button (150px), to center it horizontally
     backgroundColor: '#4E4B3E',
     paddingVertical: 15,
     paddingHorizontal: 10,

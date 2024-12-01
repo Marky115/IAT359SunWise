@@ -2,8 +2,12 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { SafeAreaView, Alert, Button,  Linking, StyleSheet, View, Text, ScrollView, TouchableOpacity, Image,  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
-const supportedURL1 = 'https://www.fda.gov/consumers/consumer-updates/tips-stay-safe-sun-sunscreen-sunglasses';
-const supportedURL2 = 'https://www.fda.gov/consumers/consumer-updates/tips-stay-safe-sun-sunscreen-sunglasses';
+const supportedURL = 'https://www.fda.gov/consumers/consumer-updates/tips-stay-safe-sun-sunscreen-sunglasses';
+const ChemURL = 'https://www.goodhousekeeping.com/beauty/anti-aging/g26541068/best-zinc-oxide-sunscreen/';
+const ZincSunscreenURL = 'https://www.health.com/beauty/best-zinc-oxide-sunscreen';
+const SunscreenURL1 = 'https://www.amazon.ca/Thinkbaby-Clear-Zinc-Sunscreen-SPF/dp/B09SQDNB64';
+const SunscreenURL2 = 'https://www.amazon.ca/Sun-Bum-Sunscreen-Protection-Sensitive/dp/B0869CLL1G/ref=sr_1_10?ascsubtag=%5Bartid%7C10055.g.26541068%5Bsrc%7Cwww.google.com%5Bch%7C%5Blt%7C%28not+set%29+%7C+%28not+set%29%5Bpid%7Cc8729a87-3851-4d8a-ad98-45cdb5c43fba%5Baxid%7C3e8bc4b6-8710-4ec0-9442-0d69d07788b1&dib=eyJ2IjoiMSJ9.X1BPnzDUoxktbYxQxSzSZ00JCx4y7Y-2PZCwW-eVGPUbV4P9HOuFS7NxwYhrrWJcDZlcyXlpJnmrigtJllsIRA4a0WueHgaDObpWw2HfK9mAVeYyhsRyYbF0mu9MGN6FGlj6QydSajvP7cES-DR2YqkDTualpGt4WAAHznaujR8tVSLw4b-r1qAEFTZFOk_wZwBbbXQ3uvxAvFaIDSgMmTzzXZgtvyhTlGscp3oLajaRvb1OmYKZxgtrfW9t1Fy8QQpVi1NOsM5WdXI_Y-j8rh3_dpPsfnETqpOmXZbz-GA.4ZQ17zbyM0VfUuxvMe6W-23Guz8fpeiD4lKwLHDNG4Q&dib_tag=se&keywords=Sun+Bum+Mineral+SPF+30+Sunscreen+Body+Lotion%7C+Broad+Spectrum+Moisturizing+Facial+Sunblock+with+Vitamin+E+%7C+Vegan+and+Hawaii+104+Act+Compliant+%28Octinoxate&linkCode=gg3&qid=1733096202&sr=8-10';
+const SunscreenURL3 = 'https://www.sephora.com/ca/en/product/blume-sunburst-mineral-spf-50-with-niacinimide-P510880?skuId=2780377&icid2=products%20grid:p510880:product';
 
 
 
@@ -67,14 +71,35 @@ const renderSuggestions = () => {
 
   const handlePress1 = () => {
     // URL to open when button is pressed
-    Linking.openURL(supportedURL1).catch((err) => Alert.alert('Error', 'Failed to open URL'));
+    Linking.openURL(supportedURL).catch((err) => Alert.alert('Error', 'Failed to open URL'));
   };
 
+  const handlePress2 = () => {
+    // URL to open when button is pressed
+    Linking.openURL(ChemURL).catch((err) => Alert.alert('Error', 'Failed to open URL'));
+  };
 
+  const handlePress3 = () => {
+    // URL to open when button is pressed
+    Linking.openURL(ZincSunscreenURL).catch((err) => Alert.alert('Error', 'Failed to open URL'));
+  };
+  
+  const handlePress4 = () => {
+    // URL to open when button is pressed
+    Linking.openURL(SunscreenURL1).catch((err) => Alert.alert('Error', 'Failed to open URL'));
+  };
 
+  const handlePress5 = () => {
+    // URL to open when button is pressed
+    Linking.openURL(SunscreenURL2).catch((err) => Alert.alert('Error', 'Failed to open URL'));
+  };
 
-
-
+  const handlePress6 = () => {
+    // URL to open when button is pressed
+    Linking.openURL(SunscreenURL3).catch((err) => Alert.alert('Error', 'Failed to open URL'));
+  };
+  
+  
 
   return (
 
@@ -85,17 +110,18 @@ const renderSuggestions = () => {
 
       <View style={styles.scoreContainer}>
 
-        <Text style={styles.text18}>Your score: {totalScore}/10</Text>
+        <Text style={styles.text18}>Your score: </Text>
+        <Text style={styles.text26}>{totalScore}/10</Text>
       {renderSuggestions()}
 
       </View>
+
+      <ScrollView style={styles.scrollViewContainer}>
 
       {/* TouchableOpacity to open URL */}
       <TouchableOpacity style={styles.button} onPress={handlePress1}>
         <Text style={styles.buttonText}>Sun Safety Tips</Text>
       </TouchableOpacity>
-
-      <ScrollView style={styles.scrollViewContainer}>
 
       <Text style={styles.text20}>
         Chemicals to Avoid in SunScreens
@@ -105,39 +131,86 @@ const renderSuggestions = () => {
 
       <View style={styles.containerChem}>
       
-        <Image source={require('../assets/oxyb.png')} style={styles.image} />
-        <Text style={styles.text18} >OxyBenzone</Text>
-      </View>
-
-      <View style={styles.containerChem}>
-        <Image source={require('../assets/oxyb.png')} style={styles.image} />
+        <Image source={require('../assets/octin.png')} style={styles.image} />
         <Text style={styles.text18}>OxyBenzone</Text>
       </View>
 
       <View style={styles.containerChem}>
-        <Image source={require('../assets/oxyb.png')} style={styles.image} />
-        <Text style={styles.text18}>OxyBenzone</Text>
+        <Image source={require('../assets/oxyben.png')} style={styles.image} />
+        <Text style={styles.text18}>Octinoxate</Text>
       </View>
+
+      <View style={styles.containerChem}>
+        <Image source={require('../assets/homo.png')} style={styles.image} />
+        <Text style={styles.text18}>Homosalate</Text>
+      </View>
+
+      <View style={styles.containerChem}>
+        <Image source={require('../assets/homo.png')} style={styles.image} />
+        <Text style={styles.text18}>Octisalate</Text>
+      </View>
+
+      <View style={styles.containerChem}>
+        <Image source={require('../assets/coral-reef.png')} style={styles.image} />
+        <Text style={styles.text18}>Octocrylene</Text>
+
+      </View>
+      
+      <View style={styles.containerChem}>
+        <Image source={require('../assets/homo.png')} style={styles.image} />
+        <Text style={styles.text18}>Avobenzone</Text>
+
+        </View>
 
       </ScrollView>
+
+            {/* TouchableOpacity to open URL */}
+      <TouchableOpacity style={styles.button} onPress={handlePress2}>
+        <Text style={styles.buttonText}>Read More Here</Text>
+      </TouchableOpacity>
 
       <Text style={styles.text16}>
         If you do not have Zinc allergy, We would recommend you using physical sunscreen, or known as zinc based Sunscreen.
       </Text>
 
+      <TouchableOpacity style={styles.button} onPress={handlePress3}>
+        <Text style={styles.buttonText}>Zinc based Sunscreen Recommendations</Text>
+      </TouchableOpacity>
+
       <Text style={styles.text20}>
-        Our Recommendations 
+        Staff Picks
       </Text>
       <ScrollView horizontal={true} style={styles.scrollView}>
 
-      <View style={styles.containerChem}>
-        <Image source={require('../assets/oxyb.png')} style={styles.image} />
-        <Text style={styles.text18}>OxyBenzone</Text>
+      <View style={styles.containerSun}>
+        <Image source={require('../assets/26a4fceb180f40ce172f3123abdb8723_ra,w380,h380_pa,w380,h380.png')} style={styles.imageSunScreen} />
+        <Text style={styles.text18Sunscreen}>Thinkbaby</Text>
+
+      <TouchableOpacity style={styles.buttonBuy} onPress={handlePress4}>
+        <Text style={styles.buttonText}>Amazon.ca</Text>
+      </TouchableOpacity>
+        
       </View>
 
-      <View style={styles.containerChem}>
-        <Image source={require('../assets/oxyb.png')} style={styles.image} />
-        <Text style={styles.text18}>OxyBenzone</Text>
+      <View style={styles.containerSun}>
+        <Image source={require('../assets/61FPnd5oiDL._AC_SL1500_.jpg')} style={styles.imageSunScreen} />
+        <Text style={styles.text18Sunscreen}>SunBum</Text>
+
+        <TouchableOpacity style={styles.buttonBuy} onPress={handlePress5}>
+        <Text style={styles.buttonText}>Amazon.ca</Text>
+      </TouchableOpacity>
+
+      </View>
+
+      
+      <View style={styles.containerSun}>
+        <Image source={require('../assets/blume.jpg')} style={styles.imageSunScreen} />
+        <Text style={styles.text18Sunscreen}>Blume</Text>
+
+        <TouchableOpacity style={styles.buttonBuy} onPress={handlePress6}>
+        <Text style={styles.buttonText}>Sephora.ca</Text>
+      </TouchableOpacity>
+
       </View>
 
       </ScrollView>
@@ -160,26 +233,38 @@ const styles = StyleSheet.create({
   scoreContainer: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',              
-    width:'100%',
     marginBottom: 50,
   },
   
-  buttonContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: 'red',  
-    padding: 20,                 
-  },
   
   containerChem:{
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 5,
-    margin:10,
+
+    marginTop:10,
+    marginBottom:10,
+
+    marginLeft:5,
+    marginRight:5,
+
     backgroundColor:'white',
     borderRadius:25,
-    width: 200,
+  },
+
+  containerSun:{
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    marginTop:10,
+    marginBottom:10,
+
+    marginLeft:5,
+    marginRight:5,
+
+    backgroundColor:'white',
+    borderRadius:25,
+    padding:20,
   },
 
   
@@ -190,15 +275,21 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '90%',
+    width: '100%',
     marginBottom:20,
+    opacity:0.6,
   },
 
-  // Font Start
-
-  // font: {
-  //   fontFamily: 'Montserrat-Regular',
-  // },
+  buttonBuy: {
+    backgroundColor: '#4E4B3E',
+    height: 50,
+    padding: 5,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    opacity:0.6,
+  },
 
   text: {
     fontSize: 24,
@@ -239,11 +330,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#4E4B3E',
 
   },
+
+  text26:{
+    marginLeft: 20,
+    marginRight:20,
+    marginTop:10,
+    fontSize: 26,
+
+  },
+
   text18:{
     marginLeft: 20,
     marginRight:20,
     marginTop:10,
-
     fontSize: 18,
 
   },
@@ -252,27 +351,41 @@ const styles = StyleSheet.create({
 
     fontSize: 16,
     textAlign:'left',
+    marginBottom:20,
 
   },
+
+  text18Sunscreen :{
+    marginLeft: 20,
+    marginRight:20,
+    marginTop:10,
+    fontSize: 18,
+    marginBottom:20,
+  },
   scrollView: {
-    backgroundColor: '#fff0d1',
     borderRadius:25,
     marginBottom:20,
-    maxHeight:'50%',
   },
 
     scrollViewContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    // backgroundColor: 'rgba(255, 255, 255, 0.6)',
     borderRadius:25,
     marginLeft:20,
     marginRight:20,
     marginBottom:20,
-    padding:10,
 
   },
+
+  
   image: {
-    width: 120,
-    height: 110,
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+    opacity:0.5,
+  },
+  imageSunScreen: {
+    width: 150,
+    height:150,
     resizeMode: 'contain',
   },
 });
