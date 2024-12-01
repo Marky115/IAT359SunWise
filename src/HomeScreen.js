@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { 
   View, 
@@ -367,19 +365,10 @@ const styles = StyleSheet.create({
     fontSize:16,
   },
   currentButton: {
-    // backgroundColor: '#4E4B3E',
-    // paddingVertical: 15,     
-    // paddingHorizontal: 10,  
-    // borderRadius: 10,    
-    // marginTop: 20,         
-    // alignItems: 'center',      
-    // justifyContent: 'center', 
-    // opacity: 0.8,         
-    // maxWidth:"50%", 
     position: 'absolute',
-    top: 20, // Adjust this value to position it vertically
+    top: 20, 
     left: '50%',
-    transform: [{ translateX: -85 }], // Half the width of the button (150px), to center it horizontally
+    transform: [{ translateX: -85 }],
     backgroundColor: '#4E4B3E',
     paddingVertical: 15,
     paddingHorizontal: 10,
