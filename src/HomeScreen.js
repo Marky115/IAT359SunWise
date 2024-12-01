@@ -235,6 +235,16 @@ export default function HomeScreen() {
     }
   };
 
+  const moveToCurrentLocation = () => {
+    // currenty not working 
+    setInitialRegion({
+      latitude: latitude,
+      longitude: longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+  };
+
   return (
     
     <View style={styles.container}>
@@ -259,24 +269,6 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-    {/* {uvIndex !== null && (
-      <View style={styles.uvContainer}>
-        <Text style={styles.uvText}>
-          UV Index: </Text>
-          <Text style={{ 
-            color: getUVIndexInfo(uvIndex).color,
-            fontWeight: 'bold',
-
-
-          }}>
-            {` ${uvIndex.toFixed(1)} - ${getUVIndexInfo(uvIndex).risk}`}
-          
-        </Text>
-        <Text style={styles.uvMessageText}>
-          {getUVIndexInfo(uvIndex).message}
-        </Text>
-      </View>
-    )} */}
 
 {uvIndex !== null && ( 
   <View style={styles.uvContainer}>
@@ -298,6 +290,7 @@ export default function HomeScreen() {
       {/* Error Message */}
       {errorMsg && <Text style={styles.error}>{errorMsg}</Text>}
 
+
       {/* Map Container */}
       <View style={styles.mapContainer}>
         <MapView
@@ -311,6 +304,9 @@ export default function HomeScreen() {
             }}
             title="Current Location"
           />
+      <TouchableOpacity style={styles.currentButton} onPress={moveToCurrentLocation}>
+        <Text style={styles.currentButtonText}>Go to Current Location</Text>
+      </TouchableOpacity>
         </MapView>
       </View>
     </View>
@@ -327,11 +323,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFAEC',
   },
   mapContainer: {
+    display:"flex",
     width: '100%',
     height: '65%',
     borderRadius: 20,
     overflow: 'hidden',
-    marginTop: 40,
+    marginTop: 20,
+    alignContent:"center",
+    justifyContent:"center"
   },
   map: {
     width: '100%',
@@ -367,8 +366,37 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize:16,
   },
+  currentButton: {
+    // backgroundColor: '#4E4B3E',
+    // paddingVertical: 15,     
+    // paddingHorizontal: 10,  
+    // borderRadius: 10,    
+    // marginTop: 20,         
+    // alignItems: 'center',      
+    // justifyContent: 'center', 
+    // opacity: 0.8,         
+    // maxWidth:"50%", 
+    position: 'absolute',
+    top: 20, // Adjust this value to position it vertically
+    left: '50%',
+    transform: [{ translateX: -85 }], // Half the width of the button (150px), to center it horizontally
+    backgroundColor: '#4E4B3E',
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 25,
+    opacity: 0.6,
+    maxWidth: '50%',
+    alignItems: 'center',
+    justifyContent: 'center', 
+  },
+  currentButtonText: {
+    color: 'white',     
+    fontSize: 14,          
+    fontWeight: 'bold',        
+  },
+
   uvText: {
-    marginTop: 20,
+    marginTop: 10,
     fontSize: 18,
     color: '#333',
   },

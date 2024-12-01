@@ -51,13 +51,16 @@ useEffect(() => {
 
 const renderSuggestions = () => {
   if (totalScore > 7) {
-    return <Text style={styles.text18}>You are at the greatest risk for skin cancer and must exercise extreme caution.</Text>;
+    return <Text style={styles.text18}>You are at the highest risk for skin damage, including skin cancer, and must take extra precautions to protect and maintain your overall skin health.</Text>;
   } else if (totalScore >= 5 && totalScore < 7) {
-    return <Text style={styles.text18}>You are at high risk for skin cancer.</Text>;
+    return <Text style={styles.text18}>You are at a high risk for skin damage, including skin cancer. Prioritize protective measures to maintain healthy skin.
+</Text>;
   } else if (totalScore >= 2.6 && totalScore < 5) {
-    return <Text style={styles.text18}>You are at risk for skin cancer.</Text>;
+    return <Text style={styles.text18}>You are at a moderate risk for skin damage, including skin cancer. Take consistent steps to protect your skin and promote overall health.
+</Text>;
   } else {
-    return <Text style={styles.text18}>You are low risk for skin cancer.</Text>;
+    return <Text style={styles.text18}>You are at a low risk for skin damage, but it’s still important to practice good skin care to maintain long-term health and reduce the risk of issues like skin cancer.
+</Text>;
   }
 };
 
