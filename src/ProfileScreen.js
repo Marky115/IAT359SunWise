@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { SafeAreaView, Alert, Button,  Linking, StyleSheet, View, Text, ScrollView, TouchableOpacity, Image,  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
+import { LinearGradient } from 'expo-linear-gradient';
 
 const supportedURL = 'https://www.fda.gov/consumers/consumer-updates/tips-stay-safe-sun-sunscreen-sunglasses';
 const ChemURL = 'https://www.goodhousekeeping.com/beauty/anti-aging/g26541068/best-zinc-oxide-sunscreen/';
@@ -15,9 +16,20 @@ const ProfileScreen = () => {
 
   const [totalScore, setTotalScore] = useState(0);
 
+  const getScoreColor = () => {
+    if (totalScore > 7) {
+      return 'rgba(255, 62, 28, 0.1)'; 
+    } else if (totalScore >= 5 && totalScore <= 7) {
+      return 'rgba(255, 183, 28, 0.1)'; 
+    } else if (totalScore >= 2.6 && totalScore < 5) {
+      return 'rgba(255, 213, 28, 0.1)';
+    } else {
+      return 'rgba(31, 143, 16, 0.1)';
+    }
+  };
 useEffect(() => {
 
-  
+
   
   const getQuizResults = async () => {
     try {
@@ -55,15 +67,15 @@ useEffect(() => {
 
 const renderSuggestions = () => {
   if (totalScore > 7) {
-    return <Text style={styles.text18}>You are at the highest risk for skin damage, including skin cancer, and must take extra precautions to protect and maintain your overall skin health.</Text>;
+    return <Text style={styles.text18Risk}>You are at the highest risk for skin damage, including skin cancer, and must take extra precautions to protect and maintain your overall skin health.</Text>;
   } else if (totalScore >= 5 && totalScore < 7) {
-    return <Text style={styles.text18}>You are at a high risk for skin damage, including skin cancer. Prioritize protective measures to maintain healthy skin.
+    return <Text style={styles.text18Risk}>You are at a high risk for skin damage, including skin cancer. Prioritize protective measures to maintain healthy skin.
 </Text>;
   } else if (totalScore >= 2.6 && totalScore < 5) {
-    return <Text style={styles.text18}>You are at a moderate risk for skin damage, including skin cancer. Take consistent steps to protect your skin and promote overall health.
+    return <Text style={styles.text18Risk}>You are at a moderate risk for skin damage, including skin cancer. Take consistent steps to protect your skin and promote overall health.
 </Text>;
   } else {
-    return <Text style={styles.text18}>You are at a low risk for skin damage, but it’s still important to practice good skin care to maintain long-term health and reduce the risk of issues like skin cancer.
+    return <Text style={styles.text18Risk}>You are at a low risk for skin damage, but it’s still important to practice good skin care to maintain long-term health and reduce the risk of issues like skin cancer.
 </Text>;
   }
 };
@@ -102,19 +114,23 @@ const renderSuggestions = () => {
   
 
   return (
+<LinearGradient
+      style={styles.gradientBackground}
+      colors={[getScoreColor(),'#fffaf5','#fffaf5' ]} // Gradient colors
+    > 
 
     <SafeAreaView style={styles.screenContainer}>
       <Text style={styles.textUser}>
-        Hello <Text style={styles.boldText}>SunWiser</Text>
+      ☀︎ Hello <Text style={styles.boldText}>SunWiser ☀︎</Text>
       </Text>
+      <View 
+        style={styles.scoreContainer}
+      >
+        <Text style={styles.text18}>Your risk score: </Text>
+        <Text style={styles.text32}>{totalScore}/10</Text>
+        {renderSuggestions()}
 
-      <View style={styles.scoreContainer}>
-
-        <Text style={styles.text18}>Your score: </Text>
-        <Text style={styles.text26}>{totalScore}/10</Text>
-      {renderSuggestions()}
-
-      </View>
+</View>
 
       <ScrollView style={styles.scrollViewContainer}>
 
@@ -124,7 +140,11 @@ const renderSuggestions = () => {
       </TouchableOpacity>
 
       <Text style={styles.text20}>
-        Chemicals to Avoid in SunScreens
+        Chemicals to Avoid
+      </Text>
+
+      <Text style={styles.text16}>
+      To protect both your skin and the environment, consider avoiding these chemicals commonly found in sunscreens:
       </Text>
 
       <ScrollView horizontal={true} style={styles.scrollView}>
@@ -174,7 +194,7 @@ const renderSuggestions = () => {
       </Text>
 
       <TouchableOpacity style={styles.button} onPress={handlePress3}>
-        <Text style={styles.buttonText}>Zinc based Sunscreen Recommendations</Text>
+        <Text style={styles.buttonText}>Zinc based Sunscreens</Text>
       </TouchableOpacity>
 
       <Text style={styles.text20}>
@@ -184,20 +204,20 @@ const renderSuggestions = () => {
 
       <View style={styles.containerSun}>
         <Image source={require('../assets/26a4fceb180f40ce172f3123abdb8723_ra,w380,h380_pa,w380,h380.png')} style={styles.imageSunScreen} />
-        <Text style={styles.text18Sunscreen}>Thinkbaby</Text>
+        <Text style={styles.text18Sunscreen}>Thinkbaby, SPF 30</Text>
 
       <TouchableOpacity style={styles.buttonBuy} onPress={handlePress4}>
-        <Text style={styles.buttonText}>Amazon.ca</Text>
+        <Text style={styles.buttonTextBuy}>Amazon.ca</Text>
       </TouchableOpacity>
         
       </View>
 
       <View style={styles.containerSun}>
         <Image source={require('../assets/61FPnd5oiDL._AC_SL1500_.jpg')} style={styles.imageSunScreen} />
-        <Text style={styles.text18Sunscreen}>SunBum</Text>
+        <Text style={styles.text18Sunscreen}>SunBum, SPF 50</Text>
 
         <TouchableOpacity style={styles.buttonBuy} onPress={handlePress5}>
-        <Text style={styles.buttonText}>Amazon.ca</Text>
+        <Text style={styles.buttonTextBuy}>Amazon.ca</Text>
       </TouchableOpacity>
 
       </View>
@@ -205,20 +225,24 @@ const renderSuggestions = () => {
       
       <View style={styles.containerSun}>
         <Image source={require('../assets/blume.jpg')} style={styles.imageSunScreen} />
-        <Text style={styles.text18Sunscreen}>Blume</Text>
+        <Text style={styles.text18Sunscreen}>Blume, SPF 50</Text>
 
         <TouchableOpacity style={styles.buttonBuy} onPress={handlePress6}>
-        <Text style={styles.buttonText}>Sephora.ca</Text>
+        <Text style={styles.buttonTextBuy}>Sephora.ca</Text>
       </TouchableOpacity>
 
       </View>
 
       </ScrollView>
 
-      <Text>LogOut</Text>
+      
+      <TouchableOpacity style={styles.buttonLogOut} onPress={handlePress6}>
+        <Text style={styles.buttonText}>LogOut</Text>
+      </TouchableOpacity>
 
       </ScrollView>
     </SafeAreaView>
+    </LinearGradient>
   );
 };
 
@@ -227,13 +251,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFAEC',
+    // backgroundColor: '#fffaf5',
     padding: 20,
   },
   scoreContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',              
-    marginBottom: 50,
+
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      paddingBottom: 20,
+      marginBottom: 20,
+      marginTop: 20,
+      width: '100%', 
+      height: 150, 
+      borderRadius: 15, 
+      overflow: 'hidden', 
+   
   },
   
   
@@ -250,6 +282,10 @@ const styles = StyleSheet.create({
 
     backgroundColor:'white',
     borderRadius:25,
+    paddingTop:10,
+    paddingBottom:10,
+
+
   },
 
   containerSun:{
@@ -269,7 +305,7 @@ const styles = StyleSheet.create({
 
   
   button: {
-    backgroundColor: '#4E4B3E',
+    backgroundColor: 'rgba(78, 75, 62, 0.1)',
     height: 50,
     padding: 5,
     borderRadius: 25,
@@ -277,23 +313,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginBottom:20,
-    opacity:0.6,
+    borderWidth:2,
+    borderColor: 'rgba(78, 75, 62, 0.6)',
   },
 
   buttonBuy: {
-    backgroundColor: '#4E4B3E',
+    backgroundColor: 'rgb(78, 75, 62)',
     height: 50,
     padding: 5,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    opacity:0.6,
+  },
+
+  buttonLogOut: {
+    backgroundColor: '#fffaf5',
+    height: 50,
+    padding: 5,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    borderWidth:2,
+    borderColor: '#87261f',
+    marginBottom:10,
   },
 
   text: {
     fontSize: 24,
-    color: '#333',
+    color: '#4E4B3E',
     textAlign: 'left',
    marginTop: 20,
     marginBottom: 20,
@@ -325,25 +374,36 @@ const styles = StyleSheet.create({
   },
     buttonText: {
     fontSize: 18,
-    color: 'white',
+    color: '#4E4B3E',
     textAlign: 'center',
-    backgroundColor: '#4E4B3E',
 
   },
 
-  text26:{
+  buttonTextBuy: {
+    fontSize: 18,
+    color: '#fffaf5',
+    textAlign: 'center',
+
+  },
+
+  text32:{
     marginLeft: 20,
     marginRight:20,
     marginTop:10,
-    fontSize: 26,
-
+    fontSize: 32,
   },
 
   text18:{
     marginLeft: 20,
     marginRight:20,
-    marginTop:10,
     fontSize: 18,
+  },
+  text18Risk:{
+    marginTop: 10,
+
+    marginLeft: 20,
+    marginRight:20,
+    fontSize: 15,
 
   },
 
@@ -368,11 +428,13 @@ const styles = StyleSheet.create({
   },
 
     scrollViewContainer: {
-    // backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     borderRadius:25,
     marginLeft:20,
     marginRight:20,
     marginBottom:20,
+    borderWidth:10,
+    borderColor:'rgb(255, 255, 255)',
 
   },
 
@@ -387,6 +449,9 @@ const styles = StyleSheet.create({
     width: 150,
     height:150,
     resizeMode: 'contain',
+  },
+  gradientBackground: {
+    flex: 1,
   },
 });
 
