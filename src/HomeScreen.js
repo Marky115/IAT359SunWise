@@ -15,6 +15,7 @@
     } from 'react-native';
     import MapView, { Marker } from 'react-native-maps';
     import * as Location from 'expo-location';
+import { BorderlessButton } from 'react-native-gesture-handler';
     
     export default function HomeScreen() {
       // State variables
@@ -303,11 +304,11 @@
         backgroundColor: '#FFFAEC',
       },
       mapContainer: {
-        width: '90%',
-        height: '60%',
+        width: '100%',
+        height: '70%',
         borderRadius: 20,
         overflow: 'hidden',
-        marginTop: 30,
+        marginTop: 20,
       },
       map: {
         width: '100%',
@@ -319,25 +320,32 @@
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
+        backgroundColor:'rgba(255, 255, 255, 0.6)',
       },
       input: {
         flex: 1,
-        height: 40,
+        height: 50,
         borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 10,
         paddingHorizontal: 10,
         marginRight: 5,
+        fontSize:16,
       },
       searchButton: {
-        backgroundColor: '#007BFF',
         paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 5,
+        backgroundColor: '#4E4B3E',
+        height: 50,
+        padding: 5,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+
       },
       searchButtonText: {
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight:'bold',
+        fontSize:16,
       },
       uvText: {
         marginTop: 15,
