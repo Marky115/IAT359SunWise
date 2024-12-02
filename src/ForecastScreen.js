@@ -51,48 +51,65 @@ const ForecastScreen = () => {
       <Text style={styles.h3}>Current Weather Condition(User)</Text>
 
       <ScrollView style={styles.scrollViewContainer}>
-        {/* Hourly UV Index */}
-        <Text style={styles.text16}>HOURLY UV INDEX</Text>
-        <ScrollView horizontal={true} style={styles.scrollView}>
-          {hourlyUV.map((hour, index) => (
-            <View key={index} style={styles.containerHourly}>
-              <Text style={styles.text16}>{new Date(hour.dt * 1000).getHours()}H</Text>
-              <Image source={require('../assets/sunnyicon.png')} style={styles.image} />
-              <Text style={styles.text18}>{hour.uvi.toFixed(1)}</Text> {/* Rounded to 1 decimal */}
-            </View>
-          ))}
-        </ScrollView>
+  {/* Hourly UV Index */}
+  <Text style={styles.text16}>HOURLY UV INDEX</Text>
+  <ScrollView horizontal={true} style={styles.scrollView}>
+    {hourlyUV.map((hour, index) => (
+      <View key={index} style={styles.containerHourly}>
+        <Text style={styles.text16}>{new Date(hour.dt * 1000).getHours()}H</Text>
+        <Image source={require('../assets/sunnyicon.png')} style={styles.image} />
+        <Text style={styles.text18}>{hour.uvi.toFixed(0)}</Text> {/* Rounded to 1 decimal */}
+      </View>
+    ))}
+  </ScrollView>
 
-        {/* 10-Day Forecast */}
-        <Text style={styles.text16}>10-DAY FORECAST</Text>
-        <ScrollView style={styles.scrollView2}>
-          {dailyUV.map((day, index) => (
-            <View key={index} style={styles.containerForecast}>
-              <Text style={styles.textForecast}>
-                {new Date(day.dt * 1000).toLocaleDateString('en-US', {
-                  weekday: 'short',
-                })}
-              </Text>
-              {/* Displaying sun icon, UV High, and UV Low on the same line */}
-              <View style={styles.containerForecast}>
-                  {/* Align items in a row */}
-               
-                <Image source={require('../assets/sunnyicon.png')} style={styles.image} />
-                <View style={styles.uvContainer}>
-                  <Text style={styles.textForecast}>UV High: 8</Text>
-                  <Text style={styles.textForecast}>UV Low: 2</Text>
-                </View>
-              </View>
-            <View style={styles.divider} />
+  {/* 10-Day Forecast */}
+  <Text style={styles.text16}>10-DAY FORECAST</Text>
+  <ScrollView style={styles.scrollView2}>
+    {dailyUV.map((day, index) => (
+      <View key={index}>
+        {/* Container for the day's forecast content */}
+        <View style={styles.containerForecast}>
+          <Text style={styles.textForecast}>
+            {new Date(day.dt * 1000).toLocaleDateString('en-US', {
+              weekday: 'short',
+            })}
+          </Text>
+          {/* Displaying sun icon, UV High, and UV Low in a row */}
+          <View style={styles.containerForecastDetails}>
+            <Image source={require('../assets/sunnyicon.png')} style={styles.image} />
+            <View style={styles.uvContainer}>
+              <Text style={styles.textForecast}>UV High: 8</Text>
+              <Text style={styles.textForecast}>UV Low: 2</Text>
             </View>
-          ))}
-        </ScrollView>
-      </ScrollView>
+          </View>
+        </View>
+
+        {/* Border line that separates each day's content */}
+        <View style={styles.divider} />
+      </View>
+    ))}
+  </ScrollView>
+</ScrollView>
+
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  containerForecastDetails: {
+    flexDirection: 'row', // Align items horizontally
+    alignItems: 'center', // Vertically center items
+    justifyContent: 'space-between', // Space items evenly in the row
+    width: '100%', // Ensure it takes full width for proper alignment
+  },
+  
+  divider: {
+    height: 1,
+    backgroundColor: 'gray',
+    width: '100%', // Ensure the divider takes full width
+    marginVertical: 10, // Space between days
+  },
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -169,12 +186,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginHorizontal: 5, // Space between UV High and UV Low
   },
-  divider: {
-    height: 1,
-    backgroundColor: 'gray',
-    width: '100%',
-    marginVertical: 5,
-  },
+
   
 });
 
