@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    margin: 10,
+    marginTop: 20,
   },
   hourlyUVContainer: {
     paddingHorizontal: 10,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   dailyForecastContainer: {
     padding: 10,
     backgroundColor:'rgba(255, 255, 255, 0.6)',
-    
+
   },
   dailyForecastItem: {
     flexDirection: 'row',
