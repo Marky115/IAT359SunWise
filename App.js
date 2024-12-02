@@ -20,18 +20,19 @@ const Tab = createBottomTabNavigator();
 function MainTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeTab"
       screenOptions={{
         tabBarStyle: { backgroundColor: '#FFFAEC' }, // Custom tab bar styling (optional)
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeTab"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="map-outline" size={size} color={color} />
           ),
+          title:"Home"
         }}
       />
       <Tab.Screen

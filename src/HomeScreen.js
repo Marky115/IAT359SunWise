@@ -208,19 +208,19 @@ import { BorderlessButton } from 'react-native-gesture-handler';
       // };
     
       const getUVIndexInfo = (uvIndex) => {
-        if (uvIndex <= 2) {
+        if (uvIndex <= 3) {
           return {
             color: 'green',
             risk: 'Minimal Risk',
             message: 'Safe to stay outdoors. You can comfortably enjoy outdoor activities with minimal sun protection.'
           };
-        } else if (uvIndex <= 5) {
+        } else if (uvIndex <= 8) {
           return {
             color: 'orange',
             risk: 'Moderate Risk',
             message: 'Seek shade during midday hours, wear protective clothing, and use SPF 30+ sunscreen. Limit exposure between 10 AM and 4 PM.'
           };
-        } else if (uvIndex <= 10) {
+        } else if (uvIndex <= 11) {
           return {
             color: 'red',
             risk: 'High Risk',
@@ -304,8 +304,8 @@ import { BorderlessButton } from 'react-native-gesture-handler';
         backgroundColor: '#FFFAEC',
       },
       mapContainer: {
-        width: '100%',
-        height: '70%',
+        width: '90%',
+        height: '60%',
         borderRadius: 20,
         overflow: 'hidden',
         marginTop: 20,
