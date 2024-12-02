@@ -15,7 +15,7 @@
     } from 'react-native';
     import MapView, { Marker } from 'react-native-maps';
     import * as Location from 'expo-location';
-import { BorderlessButton } from 'react-native-gesture-handler';
+
     
     export default function HomeScreen() {
       // State variables
@@ -304,7 +304,7 @@ import { BorderlessButton } from 'react-native-gesture-handler';
         backgroundColor: '#FFFAEC',
       },
       mapContainer: {
-        width: '90%',
+        width: '100%',
         height: '60%',
         borderRadius: 20,
         overflow: 'hidden',
