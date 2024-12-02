@@ -200,11 +200,11 @@
       };
     
       // UV Index Color Determination
-      const getUVIndexColor = (index) => {
-        if (index <= 2) return 'green';
-        if (index <= 5) return 'orange';
-        if (index <= 7) return 'red';
-      };
+      // const getUVIndexColor = (index) => {
+      //   if (index <= 2) return 'green';
+      //   if (index <= 5) return 'orange';
+      //   if (index <= 7) return 'red';
+      // };
     
       const getUVIndexInfo = (uvIndex) => {
         if (uvIndex <= 2) {
@@ -219,7 +219,7 @@
             risk: 'Moderate Risk',
             message: 'Seek shade during midday hours, wear protective clothing, and use SPF 30+ sunscreen. Limit exposure between 10 AM and 4 PM.'
           };
-        } else if (uvIndex <= 7) {
+        } else if (uvIndex <= 10) {
           return {
             color: 'red',
             risk: 'High Risk',
