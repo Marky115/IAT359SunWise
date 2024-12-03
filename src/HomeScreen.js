@@ -15,7 +15,7 @@
     export default function HomeScreen() {
    
       const [location, setLocation] = useState(''); 
-      const [latitude, setLatitude] = useState(49.2827); //to Vancouver
+      const [latitude, setLatitude] = useState(49.2827); 
       const [longitude, setLongitude] = useState(-123.1207); 
       const [uvIndex, setUvIndex] = useState(null);
       const [errorMsg, setErrorMsg] = useState(null);
@@ -93,10 +93,8 @@
                       latitudeDelta: 0.0922,
                       longitudeDelta: 0.0421,
                     });
-    
-                    
+                  
                     fetchUvIndex(fallbackLat, fallbackLng).then(setUvIndex);
-                    
                     setIsLoading(false);
                   }
                 }]
@@ -193,7 +191,7 @@
         }
       };
     
-    
+      
     
       const getUVIndexInfo = (uvIndex) => {
         if (uvIndex <= 3) {
@@ -290,7 +288,7 @@
       },
       mapContainer: {
         width: '100%',
-        height: '70%',
+        height: '60%',
         borderRadius: 20,
         overflow: 'hidden',
         marginTop: 10,
