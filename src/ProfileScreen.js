@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { SafeAreaView, Alert, Button,  Linking, StyleSheet, View, Text, ScrollView, TouchableOpacity, Image,  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 const supportedURL = 'https://www.fda.gov/consumers/consumer-updates/tips-stay-safe-sun-sunscreen-sunglasses';
 const ChemURL = 'https://www.goodhousekeeping.com/beauty/anti-aging/g26541068/best-zinc-oxide-sunscreen/';
@@ -13,20 +14,21 @@ const SunscreenURL3 = 'https://www.sephora.com/ca/en/product/blume-sunburst-mine
 
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
 
   const [totalScore, setTotalScore] = useState(0);
 
-  const getScoreColor = () => {
-    if (totalScore > 7) {
-      return 'rgba(255, 62, 28, 0.1)'; 
-    } else if (totalScore >= 5 && totalScore <= 7) {
-      return 'rgba(255, 183, 28, 0.1)'; 
-    } else if (totalScore >= 2.6 && totalScore < 5) {
-      return 'rgba(255, 213, 28, 0.1)';
-    } else {
-      return 'rgba(31, 143, 16, 0.1)';
-    }
-  };
+  const highRiskColor = 'rgba(255, 62, 28, 0.1)';
+const moderateRiskColor = 'rgba(255, 183, 28, 0.1)';
+const lowRiskColor = 'rgba(255, 213, 28, 0.1)';
+const minimalRiskColor = 'rgba(31, 143, 16, 0.1)';
+
+const getScoreColor = () => {
+  if (totalScore > 7) return highRiskColor;
+  if (totalScore >= 5 && totalScore <= 7) return moderateRiskColor;
+  if (totalScore >= 2.6 && totalScore < 5) return lowRiskColor;
+  return minimalRiskColor;
+};
 useEffect(() => {
 
 
@@ -111,7 +113,18 @@ const renderSuggestions = () => {
     Linking.openURL(SunscreenURL3).catch((err) => Alert.alert('Error', 'Failed to open URL'));
   };
   
-  
+  const handleLogOut = async () => {
+    try {
+      await AsyncStorage.removeItem('userToken');
+      Alert.alert('Logged out', 'You have been logged out successfully');
+      navigation.navigate('LoginSignUp');
+
+   
+    } catch (error) {
+      console.error('Error logging out: ', error);
+      Alert.alert('Error', 'Failed to log out');
+    }
+  };
 
   return (
 <LinearGradient
@@ -236,7 +249,7 @@ const renderSuggestions = () => {
       </ScrollView>
 
       
-      <TouchableOpacity style={styles.buttonLogOut} onPress={handlePress6}>
+      <TouchableOpacity style={styles.buttonLogOut} onPress={handleLogOut}>
         <Text style={styles.buttonText}>LogOut</Text>
       </TouchableOpacity>
 
