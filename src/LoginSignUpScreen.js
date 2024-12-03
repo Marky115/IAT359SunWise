@@ -126,8 +126,8 @@ return(
 
     },
     titleText: {
-        marginTop: 0,
-        marginBottom:70,
+        marginTop: 100,
+        marginBottom:300,
         textAlign: "center",
         fontWeight: "bold",
         fontSize: 40,

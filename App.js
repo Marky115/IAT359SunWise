@@ -22,16 +22,25 @@ function MainTabs() {
     <Tab.Navigator
       initialRouteName="HomeTab"
       screenOptions={{
-        tabBarStyle: { backgroundColor: '#FFFAEC' }, // Custom tab bar styling (optional)
+        tabBarStyle: { backgroundColor: '#FFFAEC' }, 
+        tabBarActiveTintColor: '#4E4B3E', 
+        tabBarInactiveTintColor: '#a39986', 
+        tabBarLabelStyle: { fontSize: 12 }, 
+
       }}
     >
       <Tab.Screen
         name="HomeTab"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="map-outline" size={size} color={color} />
+          tabBarIcon: ({ focused, size }) => (
+            <Ionicons 
+              name="map" 
+              size={size} 
+              color={focused ? "#4E4B3E" :"#a39986" }
+            />
           ),
+
           title:"Home"
         }}
       />
@@ -39,17 +48,26 @@ function MainTabs() {
         name="Forecast"
         component={ForecastScreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="sunny-outline" size={size} color={color} />
+          tabBarIcon: ({ focused, size }) => (
+            <Ionicons 
+              name="sunny" 
+              size={size} 
+              color={focused ? "#4E4B3E" :"#a39986" } 
+            />
           ),
         }}
       />
-      <Tab.Screen
+
+      <Tab.Screen 
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
+          tabBarIcon: ({ focused, size }) => (
+            <Ionicons 
+              name="person" 
+              size={size} 
+              color={focused ? "#4E4B3E" :"#a39986" } 
+            />
           ),
         }}
       />

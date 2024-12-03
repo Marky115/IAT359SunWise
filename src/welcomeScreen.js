@@ -1,8 +1,14 @@
 import React from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { SafeAreaView, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 export default function WelcomeScreen({ navigation }) {
   return (
+<LinearGradient
+      style={styles.gradientBackground}
+      colors={['#fffaf5','#fff3d1' ]} 
+    > 
 
     <SafeAreaView style={styles.container}>
 
@@ -22,6 +28,7 @@ export default function WelcomeScreen({ navigation }) {
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
     </SafeAreaView>
+    </LinearGradient>
   );
 }
 
@@ -30,19 +37,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFAEC',
+    // backgroundColor: '#FFFAEC',
   },
   image:{
+    marginTop:100,
     width: 200, 
     height: 200, 
     marginBottom: 20,
   },
   titleText: {
     fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 50,
+    marginBottom: 300,
+    color: '#4E4B3E',
   },
   skipButton: {
+    position:"fixed",
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#4E4B3E',
@@ -56,5 +65,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 18,
+  },
+
+  gradientBackground: {
+    flex: 1,
   },
 });
