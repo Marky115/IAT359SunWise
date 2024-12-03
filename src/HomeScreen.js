@@ -1,8 +1,3 @@
-  //e018353e5ada81bd7e4b7f5460b494
-    //https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}
-    //openuv-9uguimrm3z441lx-io
-    //https://api.openuv.io/api/v1/uv?lat=${latitude}&lng=${longitude}
-
 
     import React, { useState, useEffect } from 'react';
     import { 
@@ -18,10 +13,10 @@
 
     
     export default function HomeScreen() {
-      // State variables
+   
       const [location, setLocation] = useState(''); 
-      const [latitude, setLatitude] = useState(49.2827); // Default to Vancouver
-      const [longitude, setLongitude] = useState(-123.1207); // Default to Vancouver
+      const [latitude, setLatitude] = useState(49.2827); //to Vancouver
+      const [longitude, setLongitude] = useState(-123.1207); 
       const [uvIndex, setUvIndex] = useState(null);
       const [errorMsg, setErrorMsg] = useState(null);
       const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +35,7 @@
         try {
           const response = await fetch(url);
           const data = await response.json();
-          return data.current.uvi; // UV index is under current.uvi in OpenWeatherMap's One Call API
+          return data.current.uvi; 
         } catch (error) {
           console.error("Error fetching UV data:", error);
           setErrorMsg("Failed to fetch UV index");
@@ -69,23 +64,23 @@
         }
       };
     
-      // Initial location fetch
+      // Initial location fetch stuff
       useEffect(() => {
         const fetchInitialLocation = async () => {
           setIsLoading(true);
           
           try {
-            // Request permissions
+            // Request permissions stuff
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== "granted") {
-              // If permissions are denied, show an alert and set a default location
+             
               Alert.alert(
                 "Location Permission",
                 "Permission to access location was denied. Using default location.",
                 [{
                   text: "OK",
                   onPress: () => {
-                    // Default to a fallback location (e.g., New York City)
+                   
                     const fallbackLat = 40.7128;
                     const fallbackLng = -74.0060;
                     
@@ -99,7 +94,7 @@
                       longitudeDelta: 0.0421,
                     });
     
-                    // Fetch UV index for fallback location
+                    
                     fetchUvIndex(fallbackLat, fallbackLng).then(setUvIndex);
                     
                     setIsLoading(false);
@@ -109,15 +104,14 @@
               return;
             }
     
-            // Get current location
+           
             let location = await Location.getCurrentPositionAsync({});
             const { latitude, longitude } = location.coords;
             
-            // Update states with current location
+         
             setLatitude(latitude);
             setLongitude(longitude);
-            
-            // Set initial region for the map
+           
             setInitialRegion({
               latitude,
               longitude,
@@ -129,14 +123,14 @@
             const uvData = await fetchUvIndex(latitude, longitude);
             setUvIndex(uvData);
           } catch (error) {
-            // Handle any unexpected errors
+            
             Alert.alert(
               "Location Error", 
               "Could not retrieve your location. Using default location.",
               [{
                 text: "OK",
                 onPress: () => {
-                  // Default to a fallback location
+                 
                   const fallbackLat = 40.7128;
                   const fallbackLng = -74.0060;
                   
@@ -150,7 +144,6 @@
                     longitudeDelta: 0.0421,
                   });
     
-                  // Fetch UV index for fallback location
                   fetchUvIndex(fallbackLat, fallbackLng).then(setUvIndex);
                 }
               }]
@@ -265,10 +258,10 @@
       )}
      
         
-          {/* Error Message */}
+  
           {errorMsg && <Text style={styles.error}>{errorMsg}</Text>}
     
-          {/* Map Container */}
+    
           <View style={styles.mapContainer}>
             <MapView
               style={styles.map}
