@@ -15,13 +15,13 @@ const ForecastScreen = () => {
   const [hourlyUV, setHourlyUV] = useState([]);
   const [dailyUV, setDailyUV] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [uvHigh, setUVHigh] = useState(0); // Add this line
-  const [uvLow, setUVLow] = useState(0); // Add this line
+  const [uvHigh, setUVHigh] = useState(0); 
+  const [uvLow, setUVLow] = useState(0);
+  const [currentUV, setCurrentUV] = useState(0); // User's current UV index
 
   const apiKey = '6ce018353e5ada81bd7e4b7f5460b494';
   const [userLocation, setUserLocation] = useState({ latitude: 0, longitude: 0 });
 
-  
   useEffect(() => {
     const fetchUserLocation = async () => {
       try {
@@ -50,15 +50,17 @@ const ForecastScreen = () => {
         );
         const data = await response.json();
     
-        // Find the UV high and UV low from the daily forecast
+        // Extract daily UV data and current UV index
         const dailyUVValues = data.daily.map((day) => day.uvi);
         const uvHigh = Math.max(...dailyUVValues);
         const uvLow = Math.min(...dailyUVValues);
-    
+        const currentUV = data.current.uvi;
+
         setHourlyUV(data.hourly.slice(0, 10));
         setDailyUV(data.daily.slice(0, 10));
         setUVHigh(uvHigh);
         setUVLow(uvLow);
+        setCurrentUV(currentUV);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching UV data:', error);
@@ -68,6 +70,30 @@ const ForecastScreen = () => {
     fetchUserLocation();
   }, []);
 
+  const getUVIndexInfo = (uvIndex) => {
+    if (uvIndex <= 3) {
+      return {
+        color: 'green',
+        risk: 'Minimal Risk',
+      };
+    } else if (uvIndex <= 8) {
+      return {
+        color: 'orange',
+        risk: 'Moderate Risk',
+      };
+    } else if (uvIndex <= 11) {
+      return {
+        color: 'red',
+        risk: 'High Risk',
+      };
+    } else {
+      return {
+        color: 'purple',
+        risk: 'Extreme Risk',
+      };
+    }
+  };
+
   if (loading) {
     return (
       <SafeAreaView style={styles.screenContainer}>
@@ -75,13 +101,23 @@ const ForecastScreen = () => {
       </SafeAreaView>
     );
   }
-  
-  //<Text style={styles.h2}>Your Location(User)</Text>
+
+  const uvInfo = getUVIndexInfo(currentUV);
+
   return (
     <SafeAreaView style={styles.screenContainer}>
-      
-      <Text style={styles.h1}>4/10(example)</Text>
-      <Text style={styles.h3}>Current Weather Condition(User)</Text>
+      <View style={styles.currentUVContainer}>
+          <Text style={styles.currentUVLabel}>Current UV Index</Text>
+        <View style={styles.uvIndexRow}>
+          <Text style={[styles.uvIndexValue, { color: uvInfo.color }]}>
+            {currentUV.toFixed(1)}
+          </Text>
+          <Text style={[styles.uvRiskText, { color: uvInfo.color }]}>
+            {uvInfo.risk}
+          </Text>
+        </View>
+      </View>
+
 
       <ScrollView style={styles.scrollViewContainer}>
         {/* Hourly UV Index */}
@@ -89,38 +125,42 @@ const ForecastScreen = () => {
         <ScrollView horizontal style={styles.hourlyUVContainer}>
           {hourlyUV.map((hour, index) => (
             <View key={index} style={styles.hourlyUVItem}>
-              <Text style={styles.hourlyUVText}>{new Date(hour.dt * 1000).getHours()}H</Text>
-              <Image source={require('../assets/sunnyicon.png')} style={styles.weatherIcon} />
+              <Text style={styles.hourlyUVText}>
+                {new Date(hour.dt * 1000).getHours()}H
+              </Text>
+              <Image
+                source={require('../assets/sunnyicon.png')}
+                style={styles.weatherIcon}
+              />
               <Text style={styles.hourlyUVText}>{hour.uvi.toFixed(0)}</Text>
             </View>
           ))}
         </ScrollView>
 
         {/* 10-Day Forecast */}
-        <Text style={styles.sectionTitle}>10-DAY FORECAST</Text>
+        <Text style={styles.sectionTitle}>8-DAY FORECAST</Text>
         <ScrollView style={styles.dailyForecastContainer}>
           {dailyUV.map((day, index) => (
-          <View key={index} style={styles.dailyForecastItem}>
-            <Text style={styles.dailyForecastText}>
-             {new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
-            </Text>
-          <View style={styles.dailyForecastDetails}>
-            <Image source={require('../assets/sunnyicon.png')} style={styles.weatherIcon} />
-          <View style={styles.uvContainer}>
-            <Text style={styles.dailyForecastText}>UV High: {uvHigh.toFixed(0)}</Text>
-            <Text style={styles.dailyForecastText}>UV Low: {uvLow.toFixed(0)}</Text>
-          </View>
-        </View>
-      </View>
-    ))}
+            <View key={index} style={styles.dailyForecastItem}>
+              <Text style={styles.dailyForecastText}>
+                {new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
+              </Text>
+              <View style={styles.dailyForecastDetails}>
+                <Image source={require('../assets/sunnyicon.png')} style={styles.weatherIcon} />
+                <View style={styles.uvContainer}>
+                  <Text style={styles.dailyForecastText}>UV High: {uvHigh.toFixed(0)}</Text>
+                  <Text style={styles.dailyForecastText}>UV Low: {uvLow.toFixed(0)}</Text>
+                </View>
+              </View>
+            </View>
+          ))}
         </ScrollView>
       </ScrollView>
-  </SafeAreaView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -128,31 +168,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFAEC',
     padding: 20,
   },
-  h2: {
+  currentUVContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  currentUVLabel: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 10,
-  },
-  h1: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 10,
-  },
-  h3: {
-    fontSize: 16,
-    textAlign: 'center',
     marginBottom: 10,
+    color: '#333',
+  },
+  uvIndexValue: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  uvRiskText: {
+    fontSize: 24,
+    fontStyle: 'bold',
   },
   scrollViewContainer: {
     flex: 1,
-   
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom:10,
   },
   hourlyUVContainer: {
     paddingHorizontal: 10,
@@ -173,8 +214,7 @@ const styles = StyleSheet.create({
   },
   dailyForecastContainer: {
     padding: 10,
-    backgroundColor:'rgba(255, 255, 255, 0.6)',
-
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
   },
   dailyForecastItem: {
     flexDirection: 'row',
@@ -199,8 +239,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginLeft: 10,
   },
+  uvIndexRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap:8,
+    
+  },
+  
 });
 
 export default ForecastScreen;
-
-
