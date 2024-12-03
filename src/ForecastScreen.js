@@ -101,7 +101,7 @@ const ForecastScreen = () => {
   if (loading) {
     return (
       <SafeAreaView style={styles.screenContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#4E4B3E" />
       </SafeAreaView>
     );
   }

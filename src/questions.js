@@ -93,7 +93,7 @@ export default function QuestionsScreen({ navigation }) {
         setSelectedQuestion((prev) => prev + 1); // Go to the next question
       }
     } else {
-      Alert.alert('Warning', 'Please select an option before proceeding.');
+      Alert.alert('Reminder', 'Please select an option before proceeding.');//error msg if the user clicks next without input
     }
   };
 
@@ -117,6 +117,8 @@ export default function QuestionsScreen({ navigation }) {
         dropDownStyle={styles.dropdownList}
         labelStyle={styles.dropdownLabel}
         placeholderStyle={styles.placeholderLabel}
+        selectedItemContainerStyle={styles.selectedItemContainer}
+        selectedItemLabelStyle={styles.selectedItemLabel}
       />
 
       <View style={styles.spacer}></View>
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginBottom: 20,
+    marginTop:100,
     resizeMode: 'contain',
   },
   label: {
@@ -175,22 +178,37 @@ const styles = StyleSheet.create({
     borderColor: '#4E4B3E',
     borderWidth: 1,
     borderRadius: 20,
+
   },
   dropdownList: {
     backgroundColor: '#fff',
+    fontSize: 25,
+
+
   },
+
+  selectedItemContainer: {
+    backgroundColor: '#4E4B3E', // Active color for the selected item
+  },
+  selectedItemLabel: {
+    fontSize: 20, // Font size of the selected item
+    color: 'white', // Text color for the selected item
+  },
+
   placeholderLabel: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#999',
   },
   dropdownLabel: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#333',
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+    marginTop:250,
+    position:'fixed',
   },
   button: {
     backgroundColor: '#4E4B3E',
@@ -208,8 +226,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     textAlign: 'center',
-  },
-  spacer: {
-    height: 200,
   },
 });
