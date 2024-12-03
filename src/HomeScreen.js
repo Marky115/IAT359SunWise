@@ -200,12 +200,7 @@
         }
       };
     
-      // UV Index Color Determination
-      // const getUVIndexColor = (index) => {
-      //   if (index <= 2) return 'green';
-      //   if (index <= 5) return 'orange';
-      //   if (index <= 7) return 'red';
-      // };
+    
     
       const getUVIndexInfo = (uvIndex) => {
         if (uvIndex <= 3) {
@@ -256,12 +251,10 @@
     
       {uvIndex !== null && (
         <View style={styles.uvContainer}>
-        <Text style={styles.uvText}>
-          UV Index:
-        </Text>
-        <Text 
-          style={[styles.uvIndexValue, { color: getUVIndexInfo(uvIndex).color }]}
-        >
+          <Text style={styles.uvText}>
+            UV Index:
+          </Text>
+        <Text style={[styles.uvIndexValue, { color: getUVIndexInfo(uvIndex).color }]}>
           {`${uvIndex.toFixed(1)} - ${getUVIndexInfo(uvIndex).risk}`}
         </Text>
         <Text style={styles.uvMessageText}>
