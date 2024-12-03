@@ -51,7 +51,7 @@
       // Fetch City Coordinates function
       const fetchCityCoordinates = async (cityName) => {
         try {
-          // Note: Replace with a real geocoding API in production
+        
           const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${cityName}`);
           const data = await response.json();
           
