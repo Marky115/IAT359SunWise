@@ -18,6 +18,7 @@ const ForecastScreen = () => {
   const [uvHigh, setUVHigh] = useState(0); 
   const [uvLow, setUVLow] = useState(0);
   const [currentUV, setCurrentUV] = useState(0); // User's current UV index
+  const [currentWeather, setCurrentWeather] = useState('');
 
   const apiKey = '6ce018353e5ada81bd7e4b7f5460b494';
   const [userLocation, setUserLocation] = useState({ latitude: 0, longitude: 0 });
@@ -55,6 +56,8 @@ const ForecastScreen = () => {
         const uvHigh = Math.max(...dailyUVValues);
         const uvLow = Math.min(...dailyUVValues);
         const currentUV = data.current.uvi;
+        const currentWeatherDesc = data.current.weather[0].description;
+        
 
         setHourlyUV(data.hourly.slice(0, 10));
         setDailyUV(data.daily.slice(0, 10));
@@ -62,6 +65,7 @@ const ForecastScreen = () => {
         setUVLow(uvLow);
         setCurrentUV(currentUV);
         setLoading(false);
+        setCurrentWeather(currentWeatherDesc);
       } catch (error) {
         console.error('Error fetching UV data:', error);
       }
@@ -116,30 +120,35 @@ const ForecastScreen = () => {
             {uvInfo.risk}
           </Text>
         </View>
+        <Text style={styles.weatherDescription}>
+          {`${currentWeather}`}
+        </Text>
       </View>
 
-
+      
       <ScrollView style={styles.scrollViewContainer}>
         {/* Hourly UV Index */}
-        <Text style={styles.sectionTitle}>HOURLY UV INDEX</Text>
-        <ScrollView horizontal style={styles.hourlyUVContainer}>
-          {hourlyUV.map((hour, index) => (
-            <View key={index} style={styles.hourlyUVItem}>
-              <Text style={styles.hourlyUVText}>
-                {new Date(hour.dt * 1000).getHours()}H
-              </Text>
-              <Image
-                source={require('../assets/sunnyicon.png')}
-                style={styles.weatherIcon}
-              />
-              <Text style={styles.hourlyUVText}>{hour.uvi.toFixed(0)}</Text>
-            </View>
-          ))}
-        </ScrollView>
+        
+          <Text style={styles.sectionTitle}>HOURLY UV INDEX</Text>
+          <ScrollView horizontal style={styles.hourlyUVContainer}>
+            {hourlyUV.map((hour, index) => (
+              <View key={index} style={styles.hourlyUVItem}>
+                <Text style={styles.hourlyUVText}>
+                  {new Date(hour.dt * 1000).getHours()}H
+                </Text>
+                <Image
+                  source={require('../assets/sunnyicon.png')}
+                  style={styles.weatherIcon}
+                />
+                <Text style={styles.hourlyUVText}>{hour.uvi.toFixed(0)}</Text>
+              </View>
+            ))}
+          </ScrollView>
 
         {/* 10-Day Forecast */}
-        <Text style={styles.sectionTitle}>8-DAY FORECAST</Text>
+      
         <ScrollView style={styles.dailyForecastContainer}>
+        <Text style={styles.sectionTitle}>8-DAY FORECAST</Text>
           {dailyUV.map((day, index) => (
             <View key={index} style={styles.dailyForecastItem}>
               <Text style={styles.dailyForecastText}>
@@ -165,7 +174,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFAEC',
+   // backgroundColor: '#FFFAEC',
     padding: 20,
   },
   currentUVContainer: {
@@ -188,6 +197,10 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    padding:10,
+    borderRadius:15,
+    
   },
   sectionTitle: {
     fontSize: 16,
@@ -197,7 +210,7 @@ const styles = StyleSheet.create({
   },
   hourlyUVContainer: {
     paddingHorizontal: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+   
   },
   hourlyUVItem: {
     alignItems: 'center',
@@ -214,7 +227,7 @@ const styles = StyleSheet.create({
   },
   dailyForecastContainer: {
     padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backgroundColor: 'rgba(255, 255, 115, 0.6)',
   },
   dailyForecastItem: {
     flexDirection: 'row',
@@ -245,6 +258,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap:8,
     
+  },
+
+  weatherDescription: {
+    fontSize: 16,
+    marginTop: 10,
+    fontStyle: 'bold',
   },
   
 });
