@@ -169,10 +169,7 @@ const ForecastScreen = () => {
                 <Text style={styles.hourlyUVText}>
                   {new Date(hour.dt * 1000).getHours()}H
                 </Text>
-                {/* <Image
-                  source={require('../assets/sunnyicon.png')}
-                  style={styles.weatherIcon}
-                /> */}
+              
                  <Image
                     key={index}
                     source={getWeatherIcon(hour.weather[0]?.description)}
