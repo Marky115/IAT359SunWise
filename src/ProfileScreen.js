@@ -129,7 +129,7 @@ const renderSuggestions = () => {
   return (
 <LinearGradient
       style={styles.gradientBackground}
-      colors={[getScoreColor(),'#fffaf5','#fffaf5' ]} // Gradient colors
+      colors={[getScoreColor(),'#fffaf5','#fff3d1' ]} // Gradient colors
     > 
 
     <SafeAreaView style={styles.screenContainer}>
@@ -250,7 +250,7 @@ const renderSuggestions = () => {
 
       
       <TouchableOpacity style={styles.buttonLogOut} onPress={handleLogOut}>
-        <Text style={styles.buttonText}>LogOut</Text>
+        <Text style={styles.buttonTextLogOut}>LogOut</Text>
       </TouchableOpacity>
 
       </ScrollView>
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
 
   
   button: {
-    backgroundColor: 'rgba(78, 75, 62, 0.1)',
+    backgroundColor: '#fff3d1',
     height: 50,
     padding: 5,
     borderRadius: 25,
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginBottom:20,
-    borderWidth:2,
+    borderWidth:2.5,
     borderColor: 'rgba(78, 75, 62, 0.6)',
   },
 
@@ -341,16 +341,22 @@ const styles = StyleSheet.create({
   },
 
   buttonLogOut: {
-    backgroundColor: '#fffaf5',
+
     height: 50,
     padding: 5,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
     borderWidth:2,
     borderColor: '#87261f',
     marginBottom:10,
+  },
+
+  buttonTextLogOut:{
+    fontSize: 18,
+    color: '#87261f',
+    textAlign: 'center',
+
   },
 
   text: {

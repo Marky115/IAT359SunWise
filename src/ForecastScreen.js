@@ -19,6 +19,7 @@ const ForecastScreen = () => {
   const [uvLow, setUVLow] = useState(0);
   const [currentUV, setCurrentUV] = useState(0); // User's current UV index
   const [currentWeather, setCurrentWeather] = useState('');
+  
 
   const apiKey = '6ce018353e5ada81bd7e4b7f5460b494';
   const [userLocation, setUserLocation] = useState({ latitude: 0, longitude: 0 });
@@ -50,6 +51,8 @@ const ForecastScreen = () => {
           `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely&units=metric&appid=${apiKey}`
         );
         const data = await response.json();
+
+        console.log('Hourly Weather Data:', JSON.stringify(data.daily, null, 2));
     
         // Extract daily UV data and current UV index
         const dailyUVValues = data.daily.map((day) => day.uvi);
@@ -73,6 +76,36 @@ const ForecastScreen = () => {
 
     fetchUserLocation();
   }, []);
+
+  const getWeatherIcon = (description) => {
+    if (!description) {
+      return require('../assets/sunnyicon.png'); // Fallback icon
+    }
+    
+    switch (description.toLowerCase()) {
+      case 'clear sky':
+        return require('../assets/sunnyicon.png');
+
+      case 'few clouds':
+      case 'scattered clouds':
+      case 'broken clouds':
+      case 'overcast clouds':
+        return require('../assets/cloudyicon.png');
+      case 'heavy intensity rain':
+      case 'light rain':
+      case 'moderate rain':
+      case 'rain':
+        return require('../assets/rainyicon.png');
+      case 'thunderstorm':
+        return require('../assets/stormicon.png');
+      case 'snow':
+        return require('../assets/snowicon.png');
+      case 'mist':
+        return require('../assets/misticon.png');
+      default:
+        return require('../assets/sunnyicon.png');
+    }
+  };
 
   const getUVIndexInfo = (uvIndex) => {
     if (uvIndex <= 3) {
@@ -136,16 +169,21 @@ const ForecastScreen = () => {
                 <Text style={styles.hourlyUVText}>
                   {new Date(hour.dt * 1000).getHours()}H
                 </Text>
-                <Image
+                {/* <Image
                   source={require('../assets/sunnyicon.png')}
                   style={styles.weatherIcon}
-                />
+                /> */}
+                 <Image
+                    key={index}
+                    source={getWeatherIcon(hour.weather[0]?.description)}
+                    style={styles.weatherIcon}
+                  />
                 <Text style={styles.hourlyUVText}>{hour.uvi.toFixed(0)}</Text>
               </View>
             ))}
           </ScrollView>
         </View>
-        {/* 10-Day Forecast */}
+        {/* 8-Day Forecast */}
       
         <ScrollView style={styles.dailyForecastContainer}>
             <Text style={styles.sectionTitle}>
@@ -157,7 +195,11 @@ const ForecastScreen = () => {
                     {new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
                   </Text>
                   <View style={styles.dailyForecastDetails}>
-                    <Image source={require('../assets/sunnyicon.png')} style={styles.weatherIcon} />
+                  <Image
+                    key={index}
+                    source={getWeatherIcon(day.weather[0]?.description)}
+                    style={styles.weatherIcon8Day}
+                  />
                     <View style={styles.uvContainer}>
                       <Text style={styles.dailyForecastText}>UV High: {uvHigh.toFixed(0)}</Text>
                       <Text style={styles.dailyForecastText}>UV Low: {uvLow.toFixed(0)}</Text>
@@ -185,29 +227,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFAEC',
+    backgroundColor: '#fff3d1',
     padding: 20,
   },
   currentUVContainer: {
     alignItems: 'center',
     marginBottom: 20,
+    
   },
   currentUVLabel: {
+    marginTop:40,
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#333',
   },
   uvIndexValue: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
   },
   uvRiskText: {
-    fontSize: 24,
+    fontSize: 32,
     fontStyle: 'bold',
   },
   scrollViewContainer: {
     flex: 1,
+    width:"95%"
   },
   sectionTitle: {
     fontSize: 16,
@@ -218,6 +263,7 @@ const styles = StyleSheet.create({
   },
   hourlyUVContainer: {
     paddingHorizontal: 10,
+    paddingVertical:5,
    
   },
   hourlyUVItem: {
@@ -233,6 +279,15 @@ const styles = StyleSheet.create({
     height: 40,
     marginVertical: 5,
   },
+
+  weatherIcon8Day:{
+    width: 40,
+    height: 40,
+    marginVertical: 5,
+    marginRight:40,
+  },
+  
+
   dailyForecastContainer: {
     padding: 10,
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
@@ -270,9 +325,9 @@ const styles = StyleSheet.create({
   },
 
   weatherDescription: {
-    fontSize: 16,
-    marginTop: 10,
-    fontStyle: 'bold',
+    fontSize: 20,
+    color:'#4E4B3E',
+    fontWeight:'Bold',
   },
   
 });

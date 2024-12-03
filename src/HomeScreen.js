@@ -287,21 +287,20 @@
       );
     }
     
-    // Stylesheet (exactly as you provided)
     const styles = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 10,
-        backgroundColor: '#FFFAEC',
+        backgroundColor: '#fff3d1',
       },
       mapContainer: {
         width: '100%',
-        height: '60%',
+        height: '70%',
         borderRadius: 20,
         overflow: 'hidden',
-        marginTop: 20,
+        marginTop: 10,
       },
       map: {
         width: '100%',
@@ -341,15 +340,14 @@
         fontSize:16,
       },
       uvText: {
-        marginTop: 15,
+        marginTop: 10,
         fontSize: 18,
         fontWeight: 'bold',
         color: '#333',
       },
       uvIndexValue: {
     
-        fontSize: 28,
-        fontWeight: 'bold',
+        fontSize: 32,
         color: '#333',
       },
       error: {
@@ -359,15 +357,19 @@
       },
       uvContainer: {
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 10,
         paddingHorizontal: 10,
+        backgroundColor:"rgba(255, 255, 255, 0.6)",
+        width:'100%',
+        borderRadius:25,
       },
       uvMessageText: {
         marginTop: 10,
         fontSize: 14,
-        color: '#666',
+        color: '#333',
         textAlign: 'center',
         paddingHorizontal: 10,
+        marginBottom: 15,
       },
     
       uvMessageContainer:{
