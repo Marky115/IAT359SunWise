@@ -218,6 +218,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 140,
+    marginBottom:80,
   },
   rightButton: {
     marginLeft: 'auto',
