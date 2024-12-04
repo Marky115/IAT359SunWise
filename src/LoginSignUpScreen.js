@@ -14,13 +14,12 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "fire
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 
-//added from app to LoginSignupscreen
 export default function LoginSignUpScreen({navigation}) {
   //added this
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  //https://www.mailercheck.com/articles/email-validation-javascript 
+
   const validEmail = (email) =>{
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
      return emailPattern.test(email);
@@ -37,18 +36,15 @@ export default function LoginSignUpScreen({navigation}) {
       Alert.alert("Invalid Password", "Password must be at least 6 characters long.");
       return;
     }
-
-    //goes to the home screen
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Successfully logged in
-        navigation.navigate("Home"); // Navigate to Home screen
+      
+        navigation.navigate("Home"); 
       })
       .catch((error) => {
         Alert.alert("Sorry we couldn't find your account with the email or password", error.message);
       });
   };
-
 
   const handleSignUp = () => {
     
@@ -56,7 +52,7 @@ export default function LoginSignUpScreen({navigation}) {
       Alert.alert("Invalid Email", "Please enter a valid email address.");
       return;
     }
-    //if user doesnt enter a password length gives this error message to the UI
+    
     if (password.length < 6) {
       Alert.alert("Invalid Password", "Password must be at least 6 characters long.");
       return;
@@ -72,8 +68,6 @@ export default function LoginSignUpScreen({navigation}) {
           email: user.email,
       
         });
-        
-        //navigation.navigate("Home");
         navigation.navigate("User Questionnaire"); 
       })
       .catch((error) => {
